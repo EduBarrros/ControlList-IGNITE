@@ -26,7 +26,30 @@ export const style = StyleSheet.create({
         borderRadius: 5,
         color: '#FFF',
         padding: 16,
-        fontSize: 16
+        fontSize: 16,
+        flex: 1,
+        marginRight: 15
+    },
+
+    ButtonText: {
+        fontSize: 24,
+        color: '#fff'
+    },
+
+    Button: {
+        width: 56,
+        height: 56,
+        borderRadius: 5,
+        backgroundColor: '#31CF67',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    
+    FormContainer: {
+        flexDirection: 'row',
+        width: '100%',
+        marginTop: 36,
+        marginBottom: 42
     }
 
 })
