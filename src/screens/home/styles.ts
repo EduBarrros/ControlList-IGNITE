@@ -50,6 +50,16 @@ export const style = StyleSheet.create({
         width: '100%',
         marginTop: 36,
         marginBottom: 42
+    },
+
+    EmptyContainer: {
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    EmptyText: {
+        color: '#fff'
     }
 
 })

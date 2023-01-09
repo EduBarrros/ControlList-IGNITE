@@ -1,3 +1,4 @@
+import React from "react";
 import { style } from "./styles";
 import {
     View,
@@ -11,45 +12,50 @@ import { Participant } from "../../components/participant";
 
 export const Home = () => {
 
-    const Participants = ['Eduardo', 'Lucas', 'Pedro', 'Caio', 'Henrique', 'João']
+    const [participants, setParticipants] = React.useState<string[]>([])
+    const [name, setName] = React.useState('')
 
     const HandleParticipantAdd = () => {
-        if (Participants.includes('Eduardo')) {
+        if (participants.includes(name)) {
             return Alert.alert("Atenção", "Já existe um participante com este nome.")
         }
+
+        setParticipants(prevState => [...prevState, name])
+        setName('')
     }
 
     const HandleParticipantRemove = (name: string) => {
-
         Alert.alert(
-            "Atenção", 
+            "Atenção",
             `Deseja remover o participante ${name}?`,
             [
                 {
                     text: 'Sim',
-                    onPress: () => Alert.alert('Deletado')
+                    onPress: () => setParticipants(prevState => prevState.filter(item => item !== name))
                 },
                 {
                     text: 'Não',
                     style: 'cancel'
                 }
             ]
-            )
+        )
     }
 
     return (
         <View style={style.MainContainer}>
             <Text style={style.Title}>
-                Nome do Evento
+                Aniversário do Eduardo
             </Text>
             <Text style={style.SubTitle}>
-                Sexta, 4 de nomvembro de 2022
+                Domingo, 15 de Outubro de 2023
             </Text>
             <View style={style.FormContainer}>
                 <TextInput
                     style={style.Input}
                     placeholder={'Nome do participante'}
                     placeholderTextColor={'#6B6B6B'}
+                    onChangeText={setName}
+                    value={name}
                 />
                 <TouchableOpacity
                     style={style.Button}
@@ -63,13 +69,21 @@ export const Home = () => {
                 </TouchableOpacity>
             </View>
             <FlatList
-                data={Participants}
+                data={participants}
                 keyExtractor={item => item}
                 renderItem={({ item }: { item: string }) =>
                     <Participant
                         name={item}
                         onRemove={() => HandleParticipantRemove(item)}
                     />}
+                showsVerticalScrollIndicator={false}
+                ListEmptyComponent={() => 
+                <View style={style.EmptyContainer}>
+                    <Text style={style.EmptyText}>
+                        Não há participantes cadastrados ainda.
+                    </Text>
+                </View>
+                }
             />
         </View>
     )
